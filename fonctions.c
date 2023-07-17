@@ -4,11 +4,19 @@
 #define MAX_CHARSET_LENGTH 100
 
 
-/** 
- * Essayer de trouver le mot de passe d'une archive ZIP
- * @param fichier_zip le nom du fichier ZIP
- * @param password le mot de passe à essayer
- * @return 1 si le mot de passe est correct, 0 sinon
+
+/**
+ * The function `try_password` attempts to open a zip file with a given password and returns 1 if the
+ * password is correct, otherwise it returns 0.
+ * 
+ * @param fichier_zip The parameter "fichier_zip" is a string that represents the name or path of the
+ * zip file that you want to open and try the password on.
+ * @param password The `password` parameter is a string that represents the password to be used for
+ * decrypting the files in the ZIP archive.
+ * 
+ * @return The function `try_password` returns an integer value. It returns 1 if the correct password
+ * is found for any file in the zip archive, and it returns 0 if the password is incorrect or if there
+ * is an error opening the zip file.
  */
 int try_password(char* fichier_zip, char* password) {
     struct zip *archive;
