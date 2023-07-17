@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Fonction pour vérifier le code C en utilisant le compilateur
+check_c_code() {
+    COMPILER=gcc
+
+    # Options de compilation 
+    COMPILER_OPTIONS="-Wall"
+
+    # Vérification des fichiers modifiés
+    for FILE in $(git diff --cached --name-only --diff-filter=ACM "*.c" "*.h"); do
+        # Compilation du fichier
+        $COMPILER $COMPILER_OPTIONS -o /dev/null -c "$FILE"
+
+        # Vérification du code de retour
+        if [[ $? -ne 0 ]]; then
+            echo "Erreur de compilation : $FILE"
+            exit 1
+        fi
+    done
+}
+
+# Vérification du code C avant le commit
+check_c_code
+
+# Sortie avec succès
+exit 0
