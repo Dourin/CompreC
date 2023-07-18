@@ -18,6 +18,18 @@
  * is found for any file in the zip archive, and it returns 0 if the password is incorrect or if there
  * is an error opening the zip file.
  */
+void print_help() {
+    printf("Usage: ./zip [OPTION]... [FILE]...\n");
+    printf("Options:\n");
+    printf(" -h, --help                    Show this help\n");
+    printf(" -o, --open                    Open a zip file for browsing\n");
+    printf(" -b, --bruteforce              Try to bruteforce the password\n");
+    printf(" -d, --dictionary=FILE         Try to bruteforce the password with a dictionary\n");
+    printf(" -p, --password=PASSWORD       Use this password\n");
+    printf(" -e, --extract=FILE            Extract this file\n");
+    printf(" -i, --include=FILE            Include this file\n");
+}
+
 int try_password(char* fichier_zip, char* password) {
     struct zip *archive;
     struct zip_file *file;
