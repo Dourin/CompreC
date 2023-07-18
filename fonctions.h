@@ -11,6 +11,8 @@
 #define MAX_PASSWORD_LENGTH 10
 #define MAX_CHARSET_LENGTH 100
 
+void print_help();
+
 int try_password(char* fichier_zip, char* password);
 void brute_force(char* fichier_zip);
 
