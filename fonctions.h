@@ -15,5 +15,6 @@ void print_help();
 
 int try_password(char* fichier_zip, char* password);
 void brute_force(char* fichier_zip);
+void extractFileFromZip( char *archivePath,  char *filePath,  char *destinationPath);
 
 #endif  // ZIP_UTILS_H
