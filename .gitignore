@@ -1,0 +1,16 @@
+# Fichiers objets générés par le compilateur
+*.o
+
+# Fichiers exécutables générés
+*.exe
+*.out
+
+# Fichiers de sauvegarde
+*~
+
+# Fichiers générés par l'IDE
+.vscode/
+.idea/
+
+# Pour les dictionnaires contenant nos mot de passes
+dico*
