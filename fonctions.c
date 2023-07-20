@@ -145,3 +145,55 @@ void brute_force(char* fichier_zip) {
     
     printf("Mot de passe non trouvé.\n");
 }
+
+
+
+void extractFileFromZip( char *archivePath,  char *filePath,  char *destinationPath) {
+    struct zip *zipArchive = zip_open(archivePath, 0, NULL);
+    if (zipArchive == NULL) {
+        printf("Failed to open the zip archive.\n");
+        return;
+    }
+
+    // Vérifie si le fichier existe dans l'archive
+    struct zip_stat fileStat;
+    zip_stat_init(&fileStat);
+    int fileIndex = zip_name_locate(zipArchive, filePath, 0);
+    if (fileIndex < 0) {
+        printf("File not found in the zip archive.\n");
+        zip_close(zipArchive);
+        return;
+    }
+
+    // Ouvre le fichier dans l'archive
+    struct zip_file *file = zip_fopen_index(zipArchive, fileIndex, 0);
+    if (file == NULL) {
+        printf("Failed to open the file in the zip archive.\n");
+        zip_close(zipArchive);
+        return;
+    }
+
+    // Crée le fichier de destination
+    char extractionPath[256];
+    sprintf(extractionPath, "%s%s", destinationPath, filePath);
+    FILE *outputFile = fopen(extractionPath, "wb");
+    if (outputFile == NULL) {
+        printf("Failed to create the output file.\n");
+        zip_fclose(file);
+        zip_close(zipArchive);
+        return;
+    }
+
+    // Copie le contenu du fichier dans le fichier de destination
+    char buffer[1024];
+    int bytesRead;
+    while ((bytesRead = zip_fread(file, buffer, sizeof(buffer))) > 0) {
+        fwrite(buffer, 1, bytesRead, outputFile);
+    }
+
+    fclose(outputFile);
+    zip_fclose(file);
+    zip_close(zipArchive);
+
+    printf("Extraction complete.\n");
+}
